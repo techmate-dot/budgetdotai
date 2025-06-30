@@ -1,6 +1,5 @@
 import 'package:budgetdotai/json/day_month.dart';
 import 'package:budgetdotai/providers/transaction_provider.dart';
-import 'package:budgetdotai/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:provider/provider.dart';

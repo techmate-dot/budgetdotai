@@ -17,3 +17,40 @@ Budget AI is a personal finance management application designed to help users tr
 - **Advanced Reporting and Analytics**: Provide more detailed reports and visual analytics to help users understand their financial patterns better.
 - **Goal-Based Budgeting**: Allow users to set financial goals and track their progress towards achieving them.
 - **Sync with google assistant**: Users can interact with the app directly through google assistant
+
+## Setup Instructions
+
+To get the Budget AI app up and running on your local machine, follow these steps:
+
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/your-repo/budget-ai.git
+    cd budget-ai
+    ```
+
+2.  **Install Flutter dependencies**:
+    ```bash
+    flutter pub get
+    ```
+
+3.  **Set up environment variables**:
+    The chatbot feature relies on an API key. Create a `.env` file in the root of your project and add your API key:
+    ```
+    GEMINI_API_KEY=YOUR_API_KEY_HERE
+    ```
+    Replace `YOUR_API_KEY_HERE` with your actual Gemini API key. Ensure this file is not committed to version control.
+
+4.  **Run the application**:
+    ```bash
+    flutter run
+    ```
+
+    For Android builds, if the chatbot feature is not working, please ensure your `.env` file is correctly set up and accessible in the release build. Make sure to include the `.env` file in your `pubspec.yaml` under the `assets` section:
+
+    ```yaml
+    flutter:
+      assets:
+        - .env
+    ```
+
+    After making changes, run `flutter clean` and `flutter pub get` before building the app again to ensure all assets are properly bundled.
