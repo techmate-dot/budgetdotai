@@ -175,18 +175,24 @@ class _BudgetPageState extends State<BudgetPage> {
                           color: Theme.of(context).colorScheme.surface,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurface.withOpacity(0.2),
                             width: 1.0,
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurface.withOpacity(0.05),
                               spreadRadius: 5,
                               blurRadius: 7,
-                              offset: Offset(0, 3), // changes position of shadow
+                              offset: Offset(
+                                0,
+                                3,
+                              ), // changes position of shadow
                             ),
-                            BoxShadow(
-                            ),
+                            BoxShadow(),
                           ],
                         ),
                         child: Padding(

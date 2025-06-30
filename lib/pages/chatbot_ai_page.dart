@@ -168,9 +168,9 @@ class _ChatBotAiPageState extends State<ChatBotAiPage> {
         return AlertDialog(
           backgroundColor: Colors.blueGrey[800],
           title: const Text(
-             'Confirm Budgets',
-             style: TextStyle(color: Colors.white),
-           ),
+            'Confirm Budgets',
+            style: TextStyle(color: Colors.white),
+          ),
           content: SingleChildScrollView(
             child: ListBody(
               children: budgets
