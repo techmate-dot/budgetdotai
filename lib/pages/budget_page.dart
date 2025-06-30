@@ -31,7 +31,9 @@ class _BudgetPageState extends State<BudgetPage> {
               color: Theme.of(context).colorScheme.surface,
               boxShadow: [
                 BoxShadow(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.1),
                   spreadRadius: 10,
                   blurRadius: 3,
                   // changes position of shadow
@@ -62,9 +64,12 @@ class _BudgetPageState extends State<BudgetPage> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => CreateBudgetPage(),
-                              ));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CreateBudgetPage(),
+                                ),
+                              );
                             },
                             child: Icon(Icons.add, size: 25),
                           ),
@@ -158,63 +163,88 @@ class _BudgetPageState extends State<BudgetPage> {
                   );
                 }
                 return Column(
-                  children: List.generate(budgetProvider.budgets.length, (index) {
+                  children: List.generate(budgetProvider.budgets.length, (
+                    index,
+                  ) {
                     final budget = budgetProvider.budgets[index];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
-                          spreadRadius: 10,
-                          blurRadius: 3,
-                          // changes position of shadow
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 15.0),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.surface,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+                            width: 1.0,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: Offset(0, 3), // changes position of shadow
+                            ),
+                            BoxShadow(
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        left: 25,
-                        right: 25,
-                        bottom: 25,
-                        top: 25,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            budget.name,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 13,
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.onSurface.withOpacity(0.6),
-                            ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 25,
+                            vertical: 20,
                           ),
-                          SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Text(
+                                budget.name,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 13,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface.withOpacity(0.6),
+                                ),
+                              ),
+                              SizedBox(height: 10),
                               Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                            '\$${(budget.remainingAmount ?? 0.0).toStringAsFixed(2)}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
-                          ),
-                                  SizedBox(width: 8),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '\$${(budget.remainingAmount ?? 0.0).toStringAsFixed(2)}',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onSurface,
+                                        ),
+                                      ),
+                                      SizedBox(width: 8),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 3),
+                                        child: Text(
+                                          budget.category,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 13,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface
+                                                .withOpacity(0.6),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 3),
                                     child: Text(
-                                      budget.category,
+                                      "\$5000.00",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 13,
@@ -227,49 +257,40 @@ class _BudgetPageState extends State<BudgetPage> {
                                   ),
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 3),
-                                child: Text(
-                                  "\$5000.00",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 13,
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSurface.withOpacity(0.6),
+                              SizedBox(height: 15),
+                              Stack(
+                                children: [
+                                  Container(
+                                    width: (size.width - 40),
+                                    height: 4,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onSurface.withOpacity(0.1),
+                                    ),
                                   ),
-                                ),
+                                  Container(
+                                    width:
+                                        (size.width - 40) *
+                                        (budget.amount /
+                                            10000), // Assuming a max budget of 10000 for percentage calculation
+                                    height: 4,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                          SizedBox(height: 15),
-                          Stack(
-                            children: [
-                              Container(
-                                width: (size.width - 40),
-                                height: 4,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
-                                ),
-                              ),
-                              Container(
-                                width:
-                                    (size.width - 40) * (budget.amount / 10000), // Assuming a max budget of 10000 for percentage calculation
-                                height: 4,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                );
-              }),
+                    );
+                  }),
                 );
               },
             ),

@@ -26,8 +26,12 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<BudgetProvider>(create: (context) => budgetProvider),
-        ChangeNotifierProvider<TransactionProvider>(create: (context) => transactionProvider),
+        ChangeNotifierProvider<BudgetProvider>(
+          create: (context) => budgetProvider,
+        ),
+        ChangeNotifierProvider<TransactionProvider>(
+          create: (context) => transactionProvider,
+        ),
       ],
       child: const MyApp(),
     ),
@@ -40,39 +44,56 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'BudgetDotAI',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple).copyWith(
-            primary: const Color(0xFF007BFF), // A vibrant blue for primary actions
-            secondary: const Color(0xFF6C757D), // A muted grey for secondary elements
-            surface: Colors.white, // White for card backgrounds and elevated surfaces
-            background: const Color(0xFFF8F9FA), // Light grey for general backgrounds
-            error: const Color(0xFFDC3545), // Red for error states
-            onPrimary: Colors.white, // White text on primary background
-            onSecondary: Colors.white, // White text on secondary background
-            onSurface: Colors.black, // Black text on surface backgrounds
-            onBackground: Colors.black, // Black text on general backgrounds
-            onError: Colors.white, // White text on error backgrounds
-          ),
-          useMaterial3: true,
-        ),
-        darkTheme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple).copyWith(
-            primary: const Color(0xFF007BFF), // A vibrant blue for primary actions
-            secondary: const Color(0xFF6C757D), // A muted grey for secondary elements
-            surface: const Color(0xFF343A40), // Dark grey for card backgrounds and elevated surfaces
-            background: const Color(0xFF212529), // Darker grey for general backgrounds
-            error: const Color(0xFFDC3545), // Red for error states
-            onPrimary: Colors.white, // White text on primary background
-            onSecondary: Colors.white, // White text on secondary background
-            onSurface: Colors.white, // White text on surface backgrounds
-            onBackground: Colors.white, // White text on general backgrounds
-            onError: Colors.white, // White text on error backgrounds
-          ),
-          useMaterial3: true,
-        ),
-        home: RootApp(),
+      debugShowCheckedModeBanner: false,
+      title: 'BudgetDotAI',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)
+            .copyWith(
+              primary: const Color(
+                0xFF007BFF,
+              ), // A vibrant blue for primary actions
+              secondary: const Color(
+                0xFF6C757D,
+              ), // A muted grey for secondary elements
+              surface: Colors
+                  .white, // White for card backgrounds and elevated surfaces
+              background: const Color(
+                0xFFF8F9FA,
+              ), // Light grey for general backgrounds
+              error: const Color(0xFFDC3545), // Red for error states
+              onPrimary: Colors.white, // White text on primary background
+              onSecondary: Colors.white, // White text on secondary background
+              onSurface: Colors.black, // Black text on surface backgrounds
+              onBackground: Colors.black, // Black text on general backgrounds
+              onError: Colors.white, // White text on error backgrounds
+            ),
+        useMaterial3: true,
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)
+            .copyWith(
+              primary: const Color(
+                0xFF007BFF,
+              ), // A vibrant blue for primary actions
+              secondary: const Color(
+                0xFF6C757D,
+              ), // A muted grey for secondary elements
+              surface: const Color(
+                0xFF343A40,
+              ), // Dark grey for card backgrounds and elevated surfaces
+              background: const Color(
+                0xFF212529,
+              ), // Darker grey for general backgrounds
+              error: const Color(0xFFDC3545), // Red for error states
+              onPrimary: Colors.white, // White text on primary background
+              onSecondary: Colors.white, // White text on secondary background
+              onSurface: Colors.white, // White text on surface backgrounds
+              onBackground: Colors.white, // White text on general backgrounds
+              onError: Colors.white, // White text on error backgrounds
+            ),
+        useMaterial3: true,
+      ),
+      home: RootApp(),
     );
   }
 }

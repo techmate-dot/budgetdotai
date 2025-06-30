@@ -166,13 +166,18 @@ class _ChatBotAiPageState extends State<ChatBotAiPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Confirm Budgets'),
+          backgroundColor: Colors.blueGrey[800],
+          title: const Text(
+             'Confirm Budgets',
+             style: TextStyle(color: Colors.white),
+           ),
           content: SingleChildScrollView(
             child: ListBody(
               children: budgets
                   .map(
                     (budget) => Text(
                       '${budget.name}: ₦${budget.amount.toStringAsFixed(2)}',
+                      style: TextStyle(color: Colors.white70),
                     ),
                   )
                   .toList(),
@@ -180,7 +185,10 @@ class _ChatBotAiPageState extends State<ChatBotAiPage> {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cancel'),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(color: Colors.white),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
                 setState(() {
@@ -196,7 +204,10 @@ class _ChatBotAiPageState extends State<ChatBotAiPage> {
               },
             ),
             TextButton(
-              child: const Text('Confirm'),
+              child: const Text(
+                'Confirm',
+                style: TextStyle(color: Colors.white),
+              ),
               onPressed: () {
                 final budgetProvider = Provider.of<BudgetProvider>(
                   context,
