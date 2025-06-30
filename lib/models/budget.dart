@@ -15,11 +15,14 @@ class Budget extends HiveObject {
 
   @HiveField(3)
   late DateTime createdAt;
+  
+  @HiveField(4)
+  double? remainingAmount;
 
   Budget({
     required this.name,
     required this.amount,
     required this.category,
     required this.createdAt,
-  });
+  }) : remainingAmount = amount;
 }

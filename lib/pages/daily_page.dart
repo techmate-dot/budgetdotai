@@ -1,8 +1,9 @@
-import 'package:budgetdotai/json/daily_json.dart';
 import 'package:budgetdotai/json/day_month.dart';
+import 'package:budgetdotai/providers/transaction_provider.dart';
 import 'package:budgetdotai/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
+import 'package:provider/provider.dart';
 
 class DailyPage extends StatefulWidget {
   @override
@@ -125,134 +126,126 @@ class _DailyPageState extends State<DailyPage> {
             ),
           ),
           SizedBox(height: 30),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Column(
-              children: List.generate(daily.length, (index) {
-                return Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Consumer<TransactionProvider>(
+            builder: (context, transactionProvider, child) {
+              final transactions = transactionProvider.transactions;
+              if (transactions.isEmpty) {
+                return Center(
+                  child: Text(
+                    "No transactions yet.",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                );
+              }
+              return Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Column(
+                  children: List.generate(transactions.length, (index) {
+                    final transaction = transactions[index];
+                    return Column(
                       children: [
-                        Container(
-                          width: (size.width - 40) * 0.7,
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 50,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSurface.withOpacity(0.1),
-                                ),
-                                child: Center(
-                                  child: Image.asset(
-                                    daily[index]['icon'],
-                                    width: 30,
-                                    height: 30,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 15),
-                              Container(
-                                width: (size.width - 90) * 0.5,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      daily[index]['name'],
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.onSurface,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: (size.width - 40) * 0.7,
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withOpacity(0.1),
                                     ),
-                                    SizedBox(height: 5),
-                                    Text(
-                                      daily[index]['date'],
-                                      style: TextStyle(
-                                        fontSize: 12,
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.attach_money,
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .onSurface
-                                            .withOpacity(0.5),
-                                        fontWeight: FontWeight.w400,
+                                            .onSurface,
                                       ),
-                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  SizedBox(width: 15),
+                                  Container(
+                                    width: (size.width - 90) * 0.5,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          transaction.name,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 5),
+                                        Text(
+                                          transaction.budgetCategory,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface
+                                                .withOpacity(0.5),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: (size.width - 40) * 0.3,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                daily[index]['price'],
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15,
-                                  color: Colors.green,
-                                ),
+                            ),
+                            Container(
+                              width: (size.width - 40) * 0.3,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "-\$${transaction.amount.toStringAsFixed(2)}",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 65, top: 8),
+                          child: Divider(
+                            thickness: 0.8,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withOpacity(0.1),
+                          ),
+                        )
                       ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 65, top: 8),
-                      child: Divider(thickness: 0.8),
-                    ),
-                  ],
-                );
-              }),
-            ),
-          ),
-          SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Row(
-              children: [
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 80),
-                  child: Text(
-                    "Total",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: black.withOpacity(0.4),
-                      fontWeight: FontWeight.w600,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                    );
+                  }),
                 ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Text(
-                    "\$1780.00",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-          ),
+              );
+            },
+          )
         ],
       ),
     );

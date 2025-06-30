@@ -245,7 +245,7 @@ class _CreateBudgetPageState extends State<CreateBudgetPage> {
                           final newBudget = Budget(
                             name: _budgetName.text,
                             amount: double.parse(
-                                _budgetPrice.text.replaceAll('\$', '')),
+                                _budgetPrice.text.replaceAll('\₦', '')),
                             category: categories[activeCategory]['name'],
                             createdAt: DateTime.now(),
                           );

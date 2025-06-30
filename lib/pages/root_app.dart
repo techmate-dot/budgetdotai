@@ -3,6 +3,7 @@ import 'package:budgetdotai/pages/create_budge_page.dart';
 import 'package:budgetdotai/pages/daily_page.dart';
 import 'package:budgetdotai/pages/profile_page.dart';
 import 'package:budgetdotai/pages/stats_page.dart';
+import 'package:budgetdotai/pages/create_transaction_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
@@ -41,11 +42,14 @@ class _RootAppState extends State<RootApp> {
       bottomNavigationBar: getFooter(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => CreateBudgetPage()));
+          if (pageIndex == 0) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => CreateTransactionPage()));
+          } else {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => CreateBudgetPage()));
+          }
         },
         child: Icon(Icons.add, size: 25),
         backgroundColor: Theme.of(context).colorScheme.primary,
-        //params
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

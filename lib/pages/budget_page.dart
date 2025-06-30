@@ -203,12 +203,13 @@ class _BudgetPageState extends State<BudgetPage> {
                               Row(
                                 children: [
                                   Text(
-                                    '\$${budget.amount.toStringAsFixed(2)}',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
-                                  ),
+                            '\$${(budget.remainingAmount ?? 0.0).toStringAsFixed(2)}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
                                   SizedBox(width: 8),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 3),

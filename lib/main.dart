@@ -3,15 +3,33 @@ import 'package:budgetdotai/pages/root_app.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:budgetdotai/models/budget.dart';
+import 'package:budgetdotai/models/transaction.dart';
 import 'package:budgetdotai/providers/budget_provider.dart';
+import 'package:budgetdotai/providers/transaction_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(BudgetAdapter());
-  runApp(const MyApp());
+  Hive.registerAdapter(TransactionAdapter());
+
+  final budgetProvider = BudgetProvider();
+  await budgetProvider.init();
+
+  final transactionProvider = TransactionProvider();
+  await transactionProvider.init();
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<BudgetProvider>(create: (context) => budgetProvider),
+        ChangeNotifierProvider<TransactionProvider>(create: (context) => transactionProvider),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -19,9 +37,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => BudgetProvider()..init(),
-      child: MaterialApp(
+    return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'BudgetDotAI',
         theme: ThemeData(
@@ -55,7 +71,6 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: RootApp(),
-      ),
     );
   }
 }

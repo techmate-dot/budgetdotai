@@ -26,4 +26,14 @@ class BudgetProvider with ChangeNotifier {
     await _budgetBox.putAt(index, budget);
     notifyListeners();
   }
+
+  Future<void> subtractFromBudget(String category, double amount) async {
+    final budgetIndex = budgets.indexWhere((b) => b.category == category);
+    if (budgetIndex != -1) {
+      final budget = budgets[budgetIndex];
+      budget.remainingAmount = (budget.remainingAmount ?? 0.0) - amount;
+      await _budgetBox.putAt(budgetIndex, budget);
+      notifyListeners();
+    }
+  }
 }
