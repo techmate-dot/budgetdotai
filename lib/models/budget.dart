@@ -15,7 +15,7 @@ class Budget extends HiveObject {
 
   @HiveField(3)
   late DateTime createdAt;
-  
+
   @HiveField(4)
   double? remainingAmount;
 
@@ -25,4 +25,15 @@ class Budget extends HiveObject {
     required this.category,
     required this.createdAt,
   }) : remainingAmount = amount;
+
+  factory Budget.fromJson(Map<String, dynamic> json) {
+    return Budget(
+      name: json['name'] as String,
+      amount:
+          (json['amount'] as num?)?.toDouble() ??
+          0.0, // Provide a default value if null
+      category: json['category'] as String? ?? 'Uncategorized',
+      createdAt: DateTime.now(),
+    );
+  }
 }

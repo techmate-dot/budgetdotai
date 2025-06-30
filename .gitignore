@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# You can also add patterns to this file to ignore specific files in your project.
+.env

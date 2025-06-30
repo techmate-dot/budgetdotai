@@ -1,7 +1,7 @@
 import 'package:budgetdotai/pages/budget_page.dart';
 import 'package:budgetdotai/pages/create_budge_page.dart';
 import 'package:budgetdotai/pages/daily_page.dart';
-import 'package:budgetdotai/pages/profile_page.dart';
+import 'package:budgetdotai/pages/chatbot_ai_page.dart';
 import 'package:budgetdotai/pages/stats_page.dart';
 import 'package:budgetdotai/pages/create_transaction_page.dart';
 
@@ -20,8 +20,7 @@ class _RootAppState extends State<RootApp> {
     DailyPage(),
     StatsPage(),
     BudgetPage(),
-    ProfilePage(),
-    CreateBudgetPage(),
+    ChatBotAiPage(),
   ];
 
   @override
@@ -64,7 +63,7 @@ class _RootAppState extends State<RootApp> {
       Ionicons.md_calendar,
       Ionicons.md_stats,
       Ionicons.md_wallet,
-      Ionicons.ios_person,
+      Ionicons.ios_chatbubbles,
     ];
 
     return AnimatedBottomNavigationBar(
