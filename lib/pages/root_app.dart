@@ -39,17 +39,27 @@ class _RootAppState extends State<RootApp> {
     return Scaffold(
       body: getBody(),
       bottomNavigationBar: getFooter(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (pageIndex == 0) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => CreateTransactionPage()));
-          } else {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => CreateBudgetPage()));
-          }
-        },
-        child: Icon(Icons.add, size: 25),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
+      floatingActionButton: pageIndex == 3
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                if (pageIndex == 0) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CreateTransactionPage(),
+                    ),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CreateBudgetPage()),
+                  );
+                }
+              },
+              child: Icon(Icons.add, size: 25),
+              backgroundColor: Theme.of(context).colorScheme.primary,
+            ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

@@ -17,13 +17,14 @@ class ChatBotAiPage extends StatefulWidget {
 
 class _ChatBotAiPageState extends State<ChatBotAiPage> {
   final _model = GenerativeModel(
-    model: 'gemini-pro',
+    model: 'gemini-2.5-flash',
     apiKey: dotenv.env['GEMINI_API_KEY'] ?? '',
   );
   final List<ChatMessage> _messages = <ChatMessage>[];
   final ChatUser _currentUser = ChatUser(id: '0', firstName: 'User');
-  final ChatUser _geminiUser = ChatUser(id: '1', firstName: 'Gemini');
+  final ChatUser _geminiUser = ChatUser(id: '1', firstName: 'Budget Buddy');
   late final GeminiService _geminiService;
+  bool _isTyping = false;
 
   @override
   void initState() {
@@ -43,37 +44,79 @@ class _ChatBotAiPageState extends State<ChatBotAiPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Budget AI Chatbot'),
+        title: const Text('Budget Buddy'),
         backgroundColor: Colors.blueGrey[900],
       ),
-      body: DashChat(
-        currentUser: _currentUser,
-        onSend: _onSend,
-        messages: _messages,
-        messageOptions: const MessageOptions(
-          currentUserContainerColor: Color.fromRGBO(0, 166, 126, 1),
-          containerColor: Color.fromRGBO(67, 104, 80, 1),
-          textColor: Colors.white,
-        ),
-        inputOptions: InputOptions(
-          inputTextStyle: const TextStyle(color: Colors.white),
-          inputDecoration: InputDecoration(
-            hintText: 'Type your budget request...',
-            hintStyle: const TextStyle(color: Colors.white54),
-            fillColor: Colors.blueGrey[800],
-            filled: true,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25.0),
-              borderSide: BorderSide.none,
+      body: Stack(
+        children: [
+          DashChat(
+            currentUser: _currentUser,
+            onSend: _onSend,
+            messages: _messages,
+            messageOptions: const MessageOptions(
+              currentUserContainerColor: Color.fromRGBO(0, 166, 126, 1),
+              containerColor: Color.fromRGBO(67, 104, 80, 1),
+              textColor: Colors.white,
+            ),
+            inputOptions: InputOptions(
+              inputTextStyle: const TextStyle(color: Colors.white),
+              inputDecoration: InputDecoration(
+                hintText: 'Type your budget request...',
+                hintStyle: const TextStyle(color: Colors.white54),
+                fillColor: Colors.blueGrey[800],
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              sendButtonBuilder: (send) {
+                return IconButton(
+                  icon: const Icon(Icons.send, color: Colors.white),
+                  onPressed: send,
+                );
+              },
             ),
           ),
-          sendButtonBuilder: (send) {
-            return IconButton(
-              icon: const Icon(Icons.send, color: Colors.white),
-              onPressed: send,
-            );
-          },
-        ),
+          if (_isTyping)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 70,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(67, 104, 80, 1),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        children: [
+                          const Text(
+                            'Budget Buddy is typing',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          const SizedBox(width: 8),
+                          SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -81,13 +124,12 @@ class _ChatBotAiPageState extends State<ChatBotAiPage> {
   Future<void> _onSend(ChatMessage message) async {
     setState(() {
       _messages.insert(0, message);
+      _isTyping = true;
     });
-
     try {
       final List<Budget> budgets = await _geminiService.processUserRequest(
         message.text,
       );
-
       if (budgets.isNotEmpty) {
         _showBudgetConfirmationDialog(budgets);
       } else {
@@ -109,9 +151,13 @@ class _ChatBotAiPageState extends State<ChatBotAiPage> {
         ChatMessage(
           user: _geminiUser,
           createdAt: DateTime.now(),
-          text: 'Error: ${e.toString()}',
+          text: 'Error: \${e.toString()}',
         ),
       );
+    } finally {
+      setState(() {
+        _isTyping = false;
+      });
     }
   }
 
