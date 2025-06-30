@@ -12,8 +12,8 @@ Budget AI is a personal finance management application designed to help users tr
 
 ## Future Features
 
-- **AI-Powered Automatic Transaction Input**: Leverage AI to automatically input transactions based on notifications received from bank applications. This eliminates the need for manual entry and ensures accuracy.
+- **AI-Powered Automatic Transaction Input and voice**: Leverage AI to automatically input transactions based on notifications received from bank applications. This eliminates the need for manual entry and ensures accuracy.
 - **Bank-Agnostic Transaction Import**: Implement a system that allows transaction import without requiring direct linking to bank accounts or relying on paid APIs. This ensures the app remains free, open-source, and avoids API fees.
 - **Advanced Reporting and Analytics**: Provide more detailed reports and visual analytics to help users understand their financial patterns better.
 - **Goal-Based Budgeting**: Allow users to set financial goals and track their progress towards achieving them.
-
+- **Sync with google assistant**: Users can interact with the app directly through google assistant

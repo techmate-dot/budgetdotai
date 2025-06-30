@@ -241,20 +241,20 @@ class _BudgetPageState extends State<BudgetPage> {
                                       ),
                                     ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 3),
-                                    child: Text(
-                                      "\$5000.00",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 13,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface
-                                            .withOpacity(0.6),
-                                      ),
-                                    ),
-                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(top: 3),
+                                  //   child: Text(
+                                  //     "\$5000.00",
+                                  //     style: TextStyle(
+                                  //       fontWeight: FontWeight.w500,
+                                  //       fontSize: 13,
+                                  //       color: Theme.of(context)
+                                  //           .colorScheme
+                                  //           .onSurface
+                                  //           .withOpacity(0.6),
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                               SizedBox(height: 15),
