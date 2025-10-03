@@ -2,6 +2,8 @@
 
 Budget AI is a personal finance management application designed to help users track their expenses, manage budgets, and gain insights into their spending habits. The app aims to provide a seamless and intuitive experience for financial planning.
 
+Get app here: [Budget.AI](https://drive.google.com/file/d/1rFJu3gm04T12yxiZiwhqAUIT2pJ3j1FL/view?usp=drivesdk)
+
 ## Current Features
 
 - **Budget Creation and Management**: Users can create and manage various budgets for different categories.
